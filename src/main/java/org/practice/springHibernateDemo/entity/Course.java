@@ -6,27 +6,42 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="course")
+@Table(name = "course")
 public class Course {
+
+	Course(){
+	}
+
+	public Course(String name) {
+		this.name = name;
+	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@ManyToMany(mappedBy="courses")
-	private List<Student> students;
-	
-	@OneToMany(cascade=CascadeType.ALL,mappedBy="course")
+
+	//@ManyToMany(mappedBy = "courses")
+	@ManyToMany
+	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "course_id") },
+	inverseJoinColumns = {
+			@JoinColumn(name = "student_id") })
+	private Set<Student> students;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "course",fetch=FetchType.LAZY)
 	private Set<Teacher> teachers;
 
 	public int getId() {
@@ -45,11 +60,11 @@ public class Course {
 		this.name = name;
 	}
 
-	public List<Student> getStudents() {
+	public Set<Student> getStudents() {
 		return students;
 	}
 
-	public void setStudents(List<Student> students) {
+	public void setStudents(Set<Student> students) {
 		this.students = students;
 	}
 
@@ -60,5 +75,5 @@ public class Course {
 	public void setTeachers(Set<Teacher> teachers) {
 		this.teachers = teachers;
 	}
-	
+
 }

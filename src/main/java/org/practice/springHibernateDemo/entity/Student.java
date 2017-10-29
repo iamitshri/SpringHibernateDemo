@@ -27,13 +27,15 @@ public class Student {
 	private String name;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "student_detail_id", unique = true)
+	@JoinColumn(name = "student_detail_id", unique = true,nullable=true)
 	private StudentDetail studentDetail;
 
-	@ManyToMany
-	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "student_id") },
-	inverseJoinColumns = {
-			@JoinColumn(name = "course_id") })
+//	@ManyToMany
+//	@JoinTable(name = "student_course", joinColumns = { @JoinColumn(name = "student_id") },
+//	inverseJoinColumns = {
+//			@JoinColumn(name = "course_id") })
+//	
+	@ManyToMany(mappedBy = "students")
 	private Set<Course> courses;
 	
 	@OneToMany(mappedBy="student")

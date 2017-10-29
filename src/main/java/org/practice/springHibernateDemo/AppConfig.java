@@ -31,14 +31,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @ComponentScans(value ={ @ComponentScan("org.practice.springHibernateDemo") })
 public class AppConfig {
-	public static void main(String[] args) {
-		System.out.println("Hello World!");
-	}
-
+	 
 	@Bean
 	public LocalEntityManagerFactoryBean geEntityManagerFactoryBean() {
 		LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
-		factoryBean.setPersistenceUnitName("LOCAL_PERSISTENCE");
+		factoryBean.setPersistenceUnitName("course_mgmt");
 		return factoryBean;
 	}
 

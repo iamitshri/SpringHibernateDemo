@@ -11,17 +11,24 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="teacher")
+@Table(name = "teacher")
 public class Teacher {
+	Teacher() {
+	}
+
+	public Teacher(String name) {
+		this.name = name;
+	}
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="course_id")
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "course_id")
 	private Course course;
 
 	public int getId() {
